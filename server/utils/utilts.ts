@@ -1,5 +1,4 @@
-import { CohereClient } from "cohere-ai";
-import { Role, Status } from "./types";
+import { Role } from "./types";
 import { cohere } from "../controller/controller";
 import { UserInfoType } from "../schemas/schema";
 
