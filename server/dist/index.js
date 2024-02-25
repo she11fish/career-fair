@@ -27,3 +27,4 @@ app.use("/", routes_1.default);
 app.listen(port, host, () => {
     console.log(`[ ready ] http://${host}:${port}`);
 });
+exports.default = app;

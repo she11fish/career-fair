@@ -24,3 +24,5 @@ app.use("/", rootRouter);
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
 });
+
+export default app;
