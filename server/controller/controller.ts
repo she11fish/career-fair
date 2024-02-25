@@ -32,6 +32,9 @@ const userInfo: Array<UserInfoType> = [];
 const pilotConversationHistory: Array<ChatMessage> = [];
 const flightAttendantConversationHistory: Array<ChatMessage> = [];
 const nurseConversationHistory: Array<ChatMessage> = [];
+const researcherConversationHistory: Array<ChatMessage> = [];
+const gameDeveloperConversationHistory: Array<ChatMessage> = [];
+const musicianConversationHistory: Array<ChatMessage> = [];
 
 export function saveStudentStatus(req: Request, res: Response) {
   try {
@@ -93,6 +96,39 @@ export async function chatQuery(req: Request, res: Response) {
           )
         );
       }
+      case Role.RESEARCHER: {
+        return res.send(
+          await queryChat(
+            researcherConversationHistory,
+            role,
+            prompt,
+            userInfo,
+            "Ron"
+          )
+        );
+      }
+      case Role.GAMEDEV: {
+        return res.send(
+          await queryChat(
+            gameDeveloperConversationHistory,
+            role,
+            prompt,
+            userInfo,
+            "Nathan"
+          )
+        );
+      }
+      case Role.MUSICIAN: {
+        return res.send(
+          await queryChat(
+            musicianConversationHistory,
+            role,
+            prompt,
+            userInfo,
+            "Mark"
+          )
+        );
+      }
     }
   } catch (e) {
     if (e instanceof ZodError) {
@@ -125,6 +161,26 @@ export async function intro(req: Request, res: Response) {
       case Role.NURSE: {
         return res.send(
           await queryIntro(nurseConversationHistory, role, userInfo, "Nancy")
+        );
+      }
+      case Role.RESEARCHER: {
+        return res.send(
+          await queryIntro(researcherConversationHistory, role, userInfo, "Ron")
+        );
+      }
+      case Role.GAMEDEV: {
+        return res.send(
+          await queryIntro(
+            gameDeveloperConversationHistory,
+            role,
+            userInfo,
+            "Nathan"
+          )
+        );
+      }
+      case Role.MUSICIAN: {
+        return res.send(
+          await queryIntro(musicianConversationHistory, role, userInfo, "Mark")
         );
       }
     }
