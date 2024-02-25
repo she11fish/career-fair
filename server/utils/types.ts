@@ -8,7 +8,7 @@ export enum Role {
   PILOT = "Pilot",
   FA = "Flight Attendant",
   NURSE = "Nurse",
-  RESEARCHER = "Researcher",
+  RESEARCHER = "Medical Researcher",
   GAMEDEV = "Game Developer",
   MUSICIAN = "Musician",
 }
