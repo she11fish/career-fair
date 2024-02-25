@@ -10,9 +10,10 @@ import { CohereClient } from "cohere-ai";
 import { Role } from "../utils/types";
 import { queryChat, queryIntro } from "../utils/utilts";
 import { ChatMessage } from "cohere-ai/api";
-
+import dotenv from "dotenv";
+dotenv.config();
 export const cohere = new CohereClient({
-  token: "5HtOGjn5bCylKwATr2LNovvxZqj8r7tYD2QFZ7Oq",
+  token: process.env.COHERE_API_KEY!,
 });
 // Note to self
 /*
@@ -142,6 +143,7 @@ export async function chatQuery(req: Request, res: Response) {
 export async function intro(req: Request, res: Response) {
   try {
     const { role } = IntroQuerySchema.parse(req.body);
+    console.log("HERE");
     switch (role) {
       case Role.PILOT: {
         return res.send(
