@@ -12,7 +12,7 @@ var Role;
     Role["PILOT"] = "Pilot";
     Role["FA"] = "Flight Attendant";
     Role["NURSE"] = "Nurse";
-    Role["RESEARCHER"] = "Researcher";
+    Role["RESEARCHER"] = "Medical Researcher";
     Role["GAMEDEV"] = "Game Developer";
     Role["MUSICIAN"] = "Musician";
 })(Role || (exports.Role = Role = {}));
