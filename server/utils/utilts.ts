@@ -20,7 +20,7 @@ export async function queryChat(
     const generated = await cohere.generate({
       prompt: startingPrompt,
       maxTokens,
-      temperature: 0.9,
+      temperature: 0.8,
       k: 0,
       stopSequences: [],
       returnLikelihoods: "NONE",
