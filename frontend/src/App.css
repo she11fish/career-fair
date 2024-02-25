@@ -79,7 +79,7 @@ body {
   margin-top: 20px;
   top: 0; /* Adjust this value to position the heading as desired */
   left: 50%;
-  transform: translateX(-12.5vw);
+  transform: translateX(-6vw);
   z-index: 11; /* Ensure the heading is above the UnityGame */
   color: white; /* Adjust based on your preference */
   font-size: 40px; /* Adjust based on your preference */

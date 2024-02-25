@@ -179,7 +179,7 @@ function App() {
           >
             <Select
               value={schooling}
-              defaultValue="Select Schooling Age"
+              defaultValue="Select Level of Schooling"
               sx={{
                 minWidth: 600,
                 fontSize: 40,
@@ -278,7 +278,7 @@ function App() {
               alt="clouds"
               className="clouds-right"
             />
-            <div className="unity-game-heading">Career Fair Game V1</div>
+            <div className="unity-game-heading">Careerly</div>
             <div className="unity-game-container">
               <UnityGame />
             </div>
