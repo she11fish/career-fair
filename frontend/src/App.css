@@ -59,7 +59,7 @@ body {
   animation: fadeIn 4s forwards;
   width: 1200px;
   height: 500px;
-  z-index: -1;
+  z-index: 1;
   border-radius: 30px;
 }
 
