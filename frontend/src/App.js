@@ -12,10 +12,11 @@ import {
 } from "@mui/material";
 
 function App() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [name, setName] = useState("");
   const [schooling, setSchooling] = useState("");
   const [animation, setAnimation] = useState("fade-in");
+  let audio = new Audio("/assets/setup-ost.mp3");
 
   const advanceStep = () => {
     if (step < 7) {
@@ -42,11 +43,52 @@ function App() {
     }
   }, [schooling]);
 
+  useEffect(() => {
+    if (step >= 7) {
+      console.log("handleEnd called");
+      handleEnd();
+    }
+  }, [step]);
+
   const handleReset = () => {
-    setStep(1);
+    setStep(0);
     setName("");
     setSchooling("");
     setAnimation("fade-in");
+  };
+
+  // Function to handle the start button click
+  const handleStart = () => {
+    audio
+      .play()
+      .then(() => {
+        let volume = 0;
+        audio.volume = volume;
+        const intervalId = setInterval(() => {
+          if (volume <= 0.9) {
+            volume += 0.1;
+            audio.volume = volume;
+          } else {
+            clearInterval(intervalId);
+          }
+        }, 200); // Increase volume every 200ms
+      })
+      .catch((error) => console.error("Error playing audio:", error));
+    setStep(1);
+  };
+
+  const handleEnd = () => {
+    let volume = audio.volume;
+    console.log(volume);
+    const intervalId = setInterval(() => {
+      if (volume >= 0.1) {
+        volume -= 0.1;
+        audio.volume = volume;
+        console.log("audio vol", audio.volume);
+      } else {
+        clearInterval(intervalId);
+      }
+    }, 200); // Increase volume every 200ms
   };
 
   // New function to handle POST request
@@ -71,6 +113,23 @@ function App() {
 
   const renderContent = () => {
     switch (step) {
+      case 0:
+        return (
+          <div className="start-screen">
+            <Button
+              style={{
+                fontSize: "30px",
+                fontFamily: "CustomFont",
+              }}
+              variant="contained"
+              color="success"
+              onClick={handleStart}
+            >
+              Start
+            </Button>
+          </div>
+        );
+
       case 1:
         setTimeout(advanceStep, 2000); // Ensure this does not cause an infinite loop
         return <div>Hello</div>;
@@ -206,6 +265,7 @@ function App() {
         );
       case 8:
         // Placeholder for your WebGL component
+
         return (
           <div className="fade-in">
             <img
@@ -223,7 +283,7 @@ function App() {
               <UnityGame />
             </div>
             <div className="unity-game-footer">
-              NBSEHacks Submission By: <br></br>Wahid, Nathan, Arsalan, Lucas
+              NBSEHacks Submission By: <br></br>Wahib, Nathan, Arsalan, Lucas
             </div>
           </div>
         );
@@ -232,7 +292,7 @@ function App() {
         return <div>Unexpected step. Please refresh to start over.</div>;
     }
   };
-
+  // Render the start screen if the app hasn't been started yet
   return (
     <div>
       <div className="page">
