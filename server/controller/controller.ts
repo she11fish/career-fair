@@ -61,7 +61,13 @@ export async function chatQuery(req: Request, res: Response) {
     switch (role) {
       case Role.PILOT: {
         return res.send(
-          await queryChat(pilotConversationHistory, role, prompt, userInfo)
+          await queryChat(
+            pilotConversationHistory,
+            role,
+            prompt,
+            userInfo,
+            "Tonny"
+          )
         );
       }
       case Role.FA: {
@@ -70,13 +76,20 @@ export async function chatQuery(req: Request, res: Response) {
             flightAttendantConversationHistory,
             role,
             prompt,
-            userInfo
+            userInfo,
+            "Ayo"
           )
         );
       }
       case Role.NURSE: {
         return res.send(
-          await queryChat(nurseConversationHistory, role, prompt, userInfo)
+          await queryChat(
+            nurseConversationHistory,
+            role,
+            prompt,
+            userInfo,
+            "Nancy"
+          )
         );
       }
     }
@@ -95,17 +108,22 @@ export async function intro(req: Request, res: Response) {
     switch (role) {
       case Role.PILOT: {
         return res.send(
-          await queryIntro(pilotConversationHistory, role, userInfo)
+          await queryIntro(pilotConversationHistory, role, userInfo, "Tonny")
         );
       }
       case Role.FA: {
         return res.send(
-          await queryIntro(flightAttendantConversationHistory, role, userInfo)
+          await queryIntro(
+            flightAttendantConversationHistory,
+            role,
+            userInfo,
+            "Ayo"
+          )
         );
       }
       case Role.NURSE: {
         return res.send(
-          await queryIntro(nurseConversationHistory, role, userInfo)
+          await queryIntro(nurseConversationHistory, role, userInfo, "Nancy")
         );
       }
     }
