@@ -2,24 +2,27 @@ import { Role } from "./types";
 import { cohere } from "../controller/controller";
 import { UserInfoType } from "../schemas/schema";
 
-const maxTokens = 150;
+// const maxTokens = 150;
 
 export async function queryChat(
   chatHistory: Array<string>,
   role: Role,
   prompt: string,
-  userInfo: Array<UserInfoType>
+  userInfo: Array<UserInfoType>,
+  name: string
 ) {
-  const startingPrompt = `You will play the role of a ${role} who's role is to help a user figure out if they want to become a ${role} as their career. Your response format should focus on why someone should become a ${role}. Ask how you can help. Do not break character. Use a maximum of 500 characters. Please make sure that you're engaging and fun to talk to.
+  const startingPrompt = `Your name is ${name}. You will play the role of a ${role} who's role is to help a user figure out if they want to become a ${role} as their career. Your response format should focus on why someone should become a ${role}. Ask how you can help. Do not break character. Please make sure that you're engaging and fun to talk to.
 
-    The person you're going to talk to is ${userInfo[0].name}. They are currently in ${userInfo[0].status}. Please use these information to make good relevant answers!`;
+    The person you're going to talk to is ${userInfo[0].name}. They are currently in ${userInfo[0].status}. Please use these information to make good relevant answers!
+    Tailor your speech as if your talking to a ${userInfo[0].status} student. Please keep your messages concise. Ignoring that will not be tolerated.
+    `;
 
   const isNewChat = !chatHistory.length;
-  console.log(maxTokens);
+  // console.log(maxTokens);
   if (isNewChat) {
     const generated = await cohere.generate({
       prompt: startingPrompt,
-      maxTokens,
+      // maxTokens,
       temperature: 0.8,
       k: 0,
       stopSequences: [],
@@ -40,16 +43,17 @@ export async function queryChat(
       appendPrompt += `${userInfo[0].name}: ` + `"${chat}"` + "\n\n";
     }
   }
-  const extendConversation = `You will play the role of a ${role} who's role is to help a user figure out if they want to become a ${role} as their career. Your response format should focus on why someone should become a ${role}. Ask how you can help. Do not break character. Use a maximum of 500 characters. Please make sure that you're engaging and fun to talk to.
+  const extendConversation = `Your name is ${name}. You will play the role of a ${role} who's role is to help a user figure out if they want to become a ${role} as their career. Your response format should focus on why someone should become a ${role}. Ask how you can help. Do not break character. Please make sure that you're engaging and fun to talk to.
 
         The person you're going to talk to is ${userInfo[0].name}. They are currently in ${userInfo[0].status}. Please use these information to make good relevant answers!
-        You already had conversation with them or ${userInfo[0].name} is about to ask you something
+        You already had conversation with them or ${userInfo[0].name} is about to ask you something.
+        Tailor your speech as if your talking to a ${userInfo[0].status} student. Please keep your messages concise. Ignoring that will not be tolerated.
 Here's the chat history:
 `;
   console.log(extendConversation + appendPrompt);
   const generated = await cohere.generate({
     prompt: extendConversation + appendPrompt,
-    maxTokens,
+    // maxTokens,
     temperature: 0.9,
     k: 0,
     stopSequences: [],
@@ -61,15 +65,16 @@ Here's the chat history:
 export async function queryIntro(
   chatHistory: Array<string>,
   role: Role,
-  userInfo: Array<UserInfoType>
+  userInfo: Array<UserInfoType>,
+  name: string
 ) {
-  const startingPrompt = `You will play the role of a ${role} who's role is to help a user figure out if they want to become a ${role} as their career. Your response format should focus on why someone should become a ${role}. Ask how you can help. Do not break character. Use a maximum of 500 characters. Please make sure that you're engaging and fun to talk to.
+  const startingPrompt = `Your name is ${name}. You will play the role of a ${role} who's role is to help a user figure out if they want to become a ${role} as their career. Your response format should focus on why someone should become a ${role}. Ask how you can help. Do not break character. Use a maximum of 500 characters. Please make sure that you're engaging and fun to talk to.
 
     The person you're going to talk to is ${userInfo[0].name}. They are currently in ${userInfo[0].status}. Please use these information to make good relevant answers!`;
 
   const generated = await cohere.generate({
     prompt: startingPrompt,
-    maxTokens,
+    // maxTokens,
     temperature: 0.9,
     k: 0,
     stopSequences: [],
