@@ -2,7 +2,7 @@ import { Role } from "./types";
 import { cohere } from "../controller/controller";
 import { UserInfoType } from "../schemas/schema";
 
-const maxTokens = 452;
+const maxTokens = 200;
 
 export async function queryChat(
   chatHistory: Array<string>,
@@ -15,6 +15,7 @@ export async function queryChat(
     The person you're going to talk to is ${userInfo[0].name}. They are currently in ${userInfo[0].status}. Please use these information to make good relevant answers!`;
 
   const isNewChat = !chatHistory.length;
+  console.log(maxTokens);
   if (isNewChat) {
     const generated = await cohere.generate({
       prompt: startingPrompt,
