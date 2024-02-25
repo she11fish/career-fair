@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import {
   ChatQuerySchema,
+  IntroQuerySchema,
   UserInfoSchema,
   UserInfoType,
 } from "../schemas/schema";
 import { ZodError } from "zod";
 import { CohereClient } from "cohere-ai";
 import { Role } from "../utils/types";
-import { queryChat } from "../utils/utilts";
+import { queryChat, queryIntro } from "../utils/utilts";
 
 export const cohere = new CohereClient({
   token: "5HtOGjn5bCylKwATr2LNovvxZqj8r7tYD2QFZ7Oq",
@@ -56,9 +57,6 @@ export function saveStudentStatus(req: Request, res: Response) {
 export async function chatQuery(req: Request, res: Response) {
   try {
     const { role, prompt } = ChatQuerySchema.parse(req.body);
-    const startingPrompt = `You will play the role of a ${role} who's role is to help a user figure out if they want to become a ${role} as their career. Your response format should focus on why someone should become a ${role}. Ask how you can help. Do not break character. Maximum response is 500 characters. Please make sure that you're engaging and fun to talk to.
-
-    The person you're going to talk to is ${userInfo[0].name}. They are currently in ${userInfo[0].status}. Please use these information to make good relevant answers!`;
     switch (role) {
       case Role.PILOT: {
         return res.send(
@@ -73,6 +71,30 @@ export async function chatQuery(req: Request, res: Response) {
             prompt,
             userInfo
           )
+        );
+      }
+    }
+  } catch (e) {
+    if (e instanceof ZodError) {
+      res.send(e);
+      return;
+    }
+    return res.send("Unexpected error occured");
+  }
+}
+
+export async function intro(req: Request, res: Response) {
+  try {
+    const { role } = IntroQuerySchema.parse(req.body);
+    switch (role) {
+      case Role.PILOT: {
+        return res.send(
+          await queryIntro(pilotConversationHistory, role, userInfo)
+        );
+      }
+      case Role.FA: {
+        return res.send(
+          await queryIntro(flightAttendantConversationHistory, role, userInfo)
         );
       }
     }
