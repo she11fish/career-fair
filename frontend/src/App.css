@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "CustomFont"; /*Can be any text*/
+  src: url("./fonts/Squirk.ttf") format("truetype");
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -30,14 +35,14 @@
 }
 
 body {
-  font-family: "Playfair Display", serif;
-  color: #acaabe;
+  letter-spacing: 2px;
+  font-family: "CustomFont", sans-serif;
+  color: white;
   text-rendering: optimizeLegibility;
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #3b3d54;
-  font-size: 14px;
+  background: linear-gradient(#e66465, #9198e5);
+  font-size: 50px;
   overflow: hidden;
 }
 
@@ -51,6 +56,59 @@ body {
 }
 
 #react-unity-webgl-canvas-2 {
-  width: 1000px;
+  animation: fadeIn 4s forwards;
+  width: 1200px;
   height: 500px;
+  z-index: -1;
+  border-radius: 30px;
+}
+
+.unity-game-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Adjust based on your layout */
+}
+
+.unity-game-heading {
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+  letter-spacing: 3px;
+  position: absolute;
+  margin-top: 20px;
+  top: 0; /* Adjust this value to position the heading as desired */
+  left: 50%;
+  transform: translateX(-12.5vw);
+  z-index: 11; /* Ensure the heading is above the UnityGame */
+  color: white; /* Adjust based on your preference */
+  font-size: 40px; /* Adjust based on your preference */
+}
+
+.unity-game-footer {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  letter-spacing: 1px;
+  position: absolute;
+  top: 0; /* Adjust this value to position the heading as desired */
+  transform: translateY(90vh) translateX(65vw);
+  z-index: 11; /* Ensure the heading is above the UnityGame */
+  color: white; /* Adjust based on your preference */
+  font-size: 20px; /* Adjust based on your preference */
+}
+
+.clouds-left {
+  position: absolute;
+  margin-top: 10px;
+  transform: translateX(75vw) translateY(-2vh); /* Adjust this value to position the heading as desired */
+  top: 0; /* Adjust this value to position the heading as desired */
+  z-index: 12; /* Ensure the heading is above the UnityGame */
+}
+
+.clouds-right {
+  position: absolute;
+  margin-top: 10px;
+  transform: translateX(-30%) translateY(-2vh); /* Adjust this value to position the heading as desired */
+  top: 0; /* Adjust this value to position the heading as desired */
+  z-index: 11; /* Ensure the heading is above the UnityGame */
 }
