@@ -42,7 +42,8 @@ async function queryChat(chatHistory, role, prompt, userInfo, name) {
     // Here's the chat history:
     // `;
     // console.log(extendConversation + appendPrompt);
-    const extendConversation = `Respond to the student's last prompt short, concise, and engaging to get them excited about becoming pilot. Make sure to answer concisely and get to the point quickly!`;
+    console.log(chatHistory);
+    const extendConversation = `Respond to the student's last prompt short, concise, and engaging to get them excited about becoming ${role}. Make sure to answer concisely and get to the point quickly!`;
     const generated = await controller_1.cohere.chat({
         message: extendConversation /* + appendPrompt */,
         // maxTokens,
@@ -59,6 +60,7 @@ async function queryIntro(chatHistory, role, userInfo, name) {
     // const startingPrompt = `Your name is ${name}. You will play the role of a ${role} who's role is to help a user figure out if they want to become a ${role} as their career. Your response format should focus on why someone should become a ${role}. Ask how you can help. Do not break character. Use a maximum of 500 characters. Please make sure that you're engaging and fun to talk to.
     //   The person you're going to talk to is ${userInfo[0].name}. They are currently in ${userInfo[0].status}. Please use these information to make good relevant answers!`;
     const startingPrompt = `Introduce yourself as ${name} the ${role}`;
+    console.log(chatHistory);
     const generated = await controller_1.cohere.chat({
         message: startingPrompt,
         // maxTokens,

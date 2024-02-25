@@ -53,7 +53,8 @@ export async function queryChat(
   // Here's the chat history:
   // `;
   // console.log(extendConversation + appendPrompt);
-  const extendConversation = `Respond to the student's last prompt short, concise, and engaging to get them excited about becoming pilot. Make sure to answer concisely and get to the point quickly!`;
+  console.log(chatHistory);
+  const extendConversation = `Respond to the student's last prompt short, concise, and engaging to get them excited about becoming ${role}. Make sure to answer concisely and get to the point quickly!`;
   const generated = await cohere.chat({
     message: extendConversation /* + appendPrompt */,
     // maxTokens,
@@ -75,7 +76,7 @@ export async function queryIntro(
 
   //   The person you're going to talk to is ${userInfo[0].name}. They are currently in ${userInfo[0].status}. Please use these information to make good relevant answers!`;
   const startingPrompt = `Introduce yourself as ${name} the ${role}`;
-
+  console.log(chatHistory);
   const generated = await cohere.chat({
     message: startingPrompt,
     // maxTokens,
