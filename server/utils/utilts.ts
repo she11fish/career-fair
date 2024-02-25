@@ -2,6 +2,8 @@ import { Role } from "./types";
 import { cohere } from "../controller/controller";
 import { UserInfoType } from "../schemas/schema";
 
+const maxTokens = 452;
+
 export async function queryChat(
   chatHistory: Array<string>,
   role: Role,
@@ -16,6 +18,7 @@ export async function queryChat(
   if (isNewChat) {
     const generated = await cohere.generate({
       prompt: startingPrompt,
+      maxTokens,
     });
     const text = generated.generations[0].text;
     chatHistory.push(text);
@@ -41,6 +44,7 @@ Here's the chat history:
   console.log(extendConversation + appendPrompt);
   const generated = await cohere.generate({
     prompt: extendConversation + appendPrompt,
+    maxTokens,
   });
   const text = generated.generations[0].text;
   return text;
@@ -56,6 +60,7 @@ export async function queryIntro(
 
   const generated = await cohere.generate({
     prompt: startingPrompt,
+    maxTokens,
   });
   const text = generated.generations[0].text;
   chatHistory.push(text);
