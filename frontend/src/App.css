@@ -1,38 +1,56 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
   }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 2s forwards;
+}
+
+.fade-out {
+  animation: fadeOut 2s forwards;
+}
+
+@import "https://fonts.googleapis.com/css?family=Playfair+Display:400,700i,900i";
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Playfair Display", serif;
+  color: #acaabe;
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #3b3d54;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+/* Ensure you have your base styles defined for the page and svg elements */
+/* Example basic styles */
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#react-unity-webgl-canvas-2 {
+  width: 1000px;
+  height: 500px;
 }
