@@ -21,3 +21,7 @@ export const IntroQuerySchema = z
     role: z.nativeEnum(Role),
   })
   .strict();
+
+export const TextToSpeechSchema = z.object({
+  text: z.string(),
+});

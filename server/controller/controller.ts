@@ -9,6 +9,7 @@ import { ZodError } from "zod";
 import { CohereClient } from "cohere-ai";
 import { Role } from "../utils/types";
 import { queryChat, queryIntro } from "../utils/utilts";
+import { ChatMessage } from "cohere-ai/api";
 
 export const cohere = new CohereClient({
   token: "5HtOGjn5bCylKwATr2LNovvxZqj8r7tYD2QFZ7Oq",
@@ -28,8 +29,12 @@ Feel free to ask any questions you may have about being a pilot, and I will glad
 you may require.
 */
 const userInfo: Array<UserInfoType> = [];
-const pilotConversationHistory: Array<string> = [];
-const flightAttendantConversationHistory: Array<string> = [];
+const pilotConversationHistory: Array<ChatMessage> = [];
+const flightAttendantConversationHistory: Array<ChatMessage> = [];
+const nurseConversationHistory: Array<ChatMessage> = [];
+const researcherConversationHistory: Array<ChatMessage> = [];
+const gameDeveloperConversationHistory: Array<ChatMessage> = [];
+const musicianConversationHistory: Array<ChatMessage> = [];
 
 export function saveStudentStatus(req: Request, res: Response) {
   try {
@@ -60,7 +65,13 @@ export async function chatQuery(req: Request, res: Response) {
     switch (role) {
       case Role.PILOT: {
         return res.send(
-          await queryChat(pilotConversationHistory, role, prompt, userInfo)
+          await queryChat(
+            pilotConversationHistory,
+            role,
+            prompt,
+            userInfo,
+            "Tonny"
+          )
         );
       }
       case Role.FA: {
@@ -69,7 +80,52 @@ export async function chatQuery(req: Request, res: Response) {
             flightAttendantConversationHistory,
             role,
             prompt,
-            userInfo
+            userInfo,
+            "Ayo"
+          )
+        );
+      }
+      case Role.NURSE: {
+        return res.send(
+          await queryChat(
+            nurseConversationHistory,
+            role,
+            prompt,
+            userInfo,
+            "Nancy"
+          )
+        );
+      }
+      case Role.RESEARCHER: {
+        return res.send(
+          await queryChat(
+            researcherConversationHistory,
+            role,
+            prompt,
+            userInfo,
+            "Ron"
+          )
+        );
+      }
+      case Role.GAMEDEV: {
+        return res.send(
+          await queryChat(
+            gameDeveloperConversationHistory,
+            role,
+            prompt,
+            userInfo,
+            "Nathan"
+          )
+        );
+      }
+      case Role.MUSICIAN: {
+        return res.send(
+          await queryChat(
+            musicianConversationHistory,
+            role,
+            prompt,
+            userInfo,
+            "Mark"
           )
         );
       }
@@ -89,12 +145,42 @@ export async function intro(req: Request, res: Response) {
     switch (role) {
       case Role.PILOT: {
         return res.send(
-          await queryIntro(pilotConversationHistory, role, userInfo)
+          await queryIntro(pilotConversationHistory, role, userInfo, "Tonny")
         );
       }
       case Role.FA: {
         return res.send(
-          await queryIntro(flightAttendantConversationHistory, role, userInfo)
+          await queryIntro(
+            flightAttendantConversationHistory,
+            role,
+            userInfo,
+            "Ayo"
+          )
+        );
+      }
+      case Role.NURSE: {
+        return res.send(
+          await queryIntro(nurseConversationHistory, role, userInfo, "Nancy")
+        );
+      }
+      case Role.RESEARCHER: {
+        return res.send(
+          await queryIntro(researcherConversationHistory, role, userInfo, "Ron")
+        );
+      }
+      case Role.GAMEDEV: {
+        return res.send(
+          await queryIntro(
+            gameDeveloperConversationHistory,
+            role,
+            userInfo,
+            "Nathan"
+          )
+        );
+      }
+      case Role.MUSICIAN: {
+        return res.send(
+          await queryIntro(musicianConversationHistory, role, userInfo, "Mark")
         );
       }
     }
