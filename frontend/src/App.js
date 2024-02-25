@@ -14,7 +14,7 @@ import {
 function App() {
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
-  const [schooling, setSchooling] = useState("Select Schooling Age");
+  const [schooling, setSchooling] = useState("");
   const [animation, setAnimation] = useState("fade-in");
 
   const advanceStep = () => {
@@ -36,11 +36,37 @@ function App() {
     return () => clearTimeout(timeoutId);
   }, [animation, step]);
 
+  useEffect(() => {
+    if (schooling !== "") {
+      submitDetails();
+    }
+  }, [schooling]);
+
   const handleReset = () => {
     setStep(1);
     setName("");
     setSchooling("");
     setAnimation("fade-in");
+  };
+
+  // New function to handle POST request
+  const submitDetails = async () => {
+    const response = await fetch("http://localhost:3000/saveStudentStatus", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        status: schooling,
+      }),
+    });
+
+    if (response.ok) {
+      console.log("Schooling and age submitted successfully");
+    } else {
+      console.error("Failed to submit schooling");
+    }
   };
 
   const renderContent = () => {
@@ -108,7 +134,7 @@ function App() {
               autoFocus
             >
               <MenuItem
-                value={"middle school"}
+                value={"Middle School"}
                 sx={{
                   fontSize: 40,
                   fontFamily: "CustomFont",
@@ -117,7 +143,7 @@ function App() {
                 Middle School
               </MenuItem>
               <MenuItem
-                value={"high school"}
+                value={"High School"}
                 sx={{
                   fontSize: 40,
                   fontFamily: "CustomFont",
@@ -126,7 +152,7 @@ function App() {
                 High School
               </MenuItem>
               <MenuItem
-                value={"university"}
+                value={"University"}
                 sx={{
                   fontSize: 40,
                   fontFamily: "CustomFont",
