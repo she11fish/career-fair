@@ -17,7 +17,7 @@ export async function queryChat(
   //   The person you're going to talk to is ${userInfo[0].name}. They are currently in ${userInfo[0].status}. Please use these information to make good relevant answers!
   //   Tailor your speech as if your talking to a ${userInfo[0].status} student. Please keep your messages concise. Ignoring that will not be tolerated.
   //   `;
-  const startingPrompt = `Introduce yourself`;
+  const startingPrompt = `Introduce yourself as ${name} the ${role}`;
 
   const isNewChat = !chatHistory.length;
   // console.log(maxTokens);
@@ -25,9 +25,9 @@ export async function queryChat(
     const generated = await cohere.chat({
       message: startingPrompt,
       // maxTokens,
-      temperature: 0.8,
+      temperature: 0.6,
       k: 0,
-      preambleOverride: `You are ${name}, a ${role} who has been engaged to mentor ${userInfo[0].name}, a ${userInfo[0].status} student. Your answers have to be catered towards ${userInfo[0]}.`,
+      preambleOverride: `You are ${name}, a ${role} who has been engaged to mentor ${userInfo[0].name}, a ${userInfo[0].status} student. Your answers have to be catered towards ${userInfo[0].name}.`,
       chatHistory,
     });
     const text = generated.text;
@@ -53,13 +53,13 @@ export async function queryChat(
   // Here's the chat history:
   // `;
   // console.log(extendConversation + appendPrompt);
-  const extendConversation = `Try your best to be engaging, fun to talk to and, share the enthusiam of your field in order to convince the student to become ${role} as they're to discover their career path`;
+  const extendConversation = `Respond to the student's last prompt short, concise, and engaging to get them excited about becoming pilot. Make sure to answer concisely and get to the point quickly!`;
   const generated = await cohere.chat({
     message: extendConversation /* + appendPrompt */,
     // maxTokens,
-    temperature: 0.9,
+    temperature: 0.6,
     k: 0,
-    preambleOverride: `You are ${name}, a ${role} who has been engaged to mentor ${userInfo[0].name}, a ${userInfo[0].status} student. Your answers have to be catered towards ${userInfo[0]}.`,
+    preambleOverride: `You are ${name}, a ${role} who has been engaged to mentor ${userInfo[0].name}, a ${userInfo[0].status} student. Your answers have to be catered towards ${userInfo[0].name}.`,
     chatHistory,
   });
   const text = generated.text;
@@ -74,14 +74,14 @@ export async function queryIntro(
   // const startingPrompt = `Your name is ${name}. You will play the role of a ${role} who's role is to help a user figure out if they want to become a ${role} as their career. Your response format should focus on why someone should become a ${role}. Ask how you can help. Do not break character. Use a maximum of 500 characters. Please make sure that you're engaging and fun to talk to.
 
   //   The person you're going to talk to is ${userInfo[0].name}. They are currently in ${userInfo[0].status}. Please use these information to make good relevant answers!`;
-  const startingPrompt = `Introduce yourself`;
+  const startingPrompt = `Introduce yourself as ${name} the ${role}`;
 
   const generated = await cohere.chat({
     message: startingPrompt,
     // maxTokens,
-    temperature: 0.9,
+    temperature: 0.6,
     k: 0,
-    preambleOverride: `You are ${name}, a ${role} who has been engaged to mentor ${userInfo[0].name}, a ${userInfo[0].status} student. Your answers have to be catered towards ${userInfo[0]}.`,
+    preambleOverride: `You are ${name}, a ${role} who has been engaged to mentor ${userInfo[0].name}, a ${userInfo[0].status} student. Your answers have to be catered towards ${userInfo[0].name}.`,
     chatHistory,
   });
   const text = generated.text;

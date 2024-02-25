@@ -1,26 +1,23 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# dependencies
 node_modules
-coverage
-dist
-dist-ssr
-*.local
+frontend/.pnp
+frontend/.pnp.js
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-.env
+# testing
+frontend/coverage
+
+# production
+frontend/build
+
+# misc
+frontend/.DS_Store
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
