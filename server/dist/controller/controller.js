@@ -1,4 +1,7 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.intro = exports.chatQuery = exports.saveStudentStatus = exports.cohere = void 0;
 const schema_1 = require("../schemas/schema");
@@ -6,8 +9,10 @@ const zod_1 = require("zod");
 const cohere_ai_1 = require("cohere-ai");
 const types_1 = require("../utils/types");
 const utilts_1 = require("../utils/utilts");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 exports.cohere = new cohere_ai_1.CohereClient({
-    token: "5HtOGjn5bCylKwATr2LNovvxZqj8r7tYD2QFZ7Oq",
+    token: process.env.COHERE_API_KEY,
 });
 // Note to self
 /*
@@ -91,6 +96,7 @@ exports.chatQuery = chatQuery;
 async function intro(req, res) {
     try {
         const { role } = schema_1.IntroQuerySchema.parse(req.body);
+        console.log("HERE");
         switch (role) {
             case types_1.Role.PILOT: {
                 return res.send(await (0, utilts_1.queryIntro)(pilotConversationHistory, role, userInfo, "Tonny"));
