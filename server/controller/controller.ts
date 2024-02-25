@@ -9,6 +9,7 @@ import { ZodError } from "zod";
 import { CohereClient } from "cohere-ai";
 import { Role } from "../utils/types";
 import { queryChat, queryIntro } from "../utils/utilts";
+import { ChatMessage } from "cohere-ai/api";
 
 export const cohere = new CohereClient({
   token: "5HtOGjn5bCylKwATr2LNovvxZqj8r7tYD2QFZ7Oq",
@@ -28,9 +29,9 @@ Feel free to ask any questions you may have about being a pilot, and I will glad
 you may require.
 */
 const userInfo: Array<UserInfoType> = [];
-const pilotConversationHistory: Array<string> = [];
-const flightAttendantConversationHistory: Array<string> = [];
-const nurseConversationHistory: Array<string> = [];
+const pilotConversationHistory: Array<ChatMessage> = [];
+const flightAttendantConversationHistory: Array<ChatMessage> = [];
+const nurseConversationHistory: Array<ChatMessage> = [];
 
 export function saveStudentStatus(req: Request, res: Response) {
   try {
