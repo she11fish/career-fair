@@ -45,3 +45,19 @@ Here's the chat history:
   const text = generated.generations[0].text;
   return text;
 }
+export async function queryIntro(
+  chatHistory: Array<string>,
+  role: Role,
+  userInfo: Array<UserInfoType>
+) {
+  const startingPrompt = `You will play the role of a ${role} who's role is to help a user figure out if they want to become a ${role} as their career. Your response format should focus on why someone should become a ${role}. Ask how you can help. Do not break character. Maximum response is 500 characters. Please make sure that you're engaging and fun to talk to.
+
+    The person you're going to talk to is ${userInfo[0].name}. They are currently in ${userInfo[0].status}. Please use these information to make good relevant answers!`;
+
+  const generated = await cohere.generate({
+    prompt: startingPrompt,
+  });
+  const text = generated.generations[0].text;
+  chatHistory.push(text);
+  return text;
+}
