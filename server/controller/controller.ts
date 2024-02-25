@@ -30,6 +30,7 @@ you may require.
 const userInfo: Array<UserInfoType> = [];
 const pilotConversationHistory: Array<string> = [];
 const flightAttendantConversationHistory: Array<string> = [];
+const nurseConversationHistory: Array<string> = [];
 
 export function saveStudentStatus(req: Request, res: Response) {
   try {
@@ -73,6 +74,11 @@ export async function chatQuery(req: Request, res: Response) {
           )
         );
       }
+      case Role.NURSE: {
+        return res.send(
+          await queryChat(nurseConversationHistory, role, prompt, userInfo)
+        );
+      }
     }
   } catch (e) {
     if (e instanceof ZodError) {
@@ -95,6 +101,11 @@ export async function intro(req: Request, res: Response) {
       case Role.FA: {
         return res.send(
           await queryIntro(flightAttendantConversationHistory, role, userInfo)
+        );
+      }
+      case Role.NURSE: {
+        return res.send(
+          await queryIntro(nurseConversationHistory, role, userInfo)
         );
       }
     }
