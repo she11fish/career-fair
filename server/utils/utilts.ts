@@ -20,6 +20,10 @@ export async function queryChat(
     const generated = await cohere.generate({
       prompt: startingPrompt,
       maxTokens,
+      temperature: 0.9,
+      k: 0,
+      stopSequences: [],
+      returnLikelihoods: "NONE",
     });
     const text = generated.generations[0].text;
     chatHistory.push(text);
@@ -46,6 +50,10 @@ Here's the chat history:
   const generated = await cohere.generate({
     prompt: extendConversation + appendPrompt,
     maxTokens,
+    temperature: 0.9,
+    k: 0,
+    stopSequences: [],
+    returnLikelihoods: "NONE",
   });
   const text = generated.generations[0].text;
   return text;
@@ -62,6 +70,10 @@ export async function queryIntro(
   const generated = await cohere.generate({
     prompt: startingPrompt,
     maxTokens,
+    temperature: 0.9,
+    k: 0,
+    stopSequences: [],
+    returnLikelihoods: "NONE",
   });
   const text = generated.generations[0].text;
   chatHistory.push(text);
