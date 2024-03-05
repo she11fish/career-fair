@@ -135,7 +135,7 @@ function App() {
         return <div>Hello</div>;
       case 2:
         setTimeout(advanceStep, 2000);
-        return <div>Welcome to Career Fair</div>;
+        return <div>Welcome to Careerly</div>;
       case 3:
         setTimeout(advanceStep, 2000);
         return <div>Before we begin...</div>;
